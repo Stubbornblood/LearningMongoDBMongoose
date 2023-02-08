@@ -1,0 +1,87 @@
+db.dropDatabase() -> to delete data base but first use database enter into database u want to delete
+
+db.collection.find() -> this command helps you to see all data in collection
+
+Note to remmeber in mongodb collection are same as tables in sql
+to see collection you have to write command
+show collection
+
+
+//Snippet Code to create database Schema and entry of data 
+const mongoose = require('mongoose')
+
+mongoose.connect('mongodb://localhost:27017/wow');
+
+
+const peopleSchema = new mongoose.Schema({
+    name : String,
+    desc : String
+})
+
+const people = mongoose.model("cat",peopleSchema)
+
+const personCat = new people({
+ 
+    name : "John",
+    desc : "Good person in nature"
+     
+}) 
+
+personCat.save()
+
+//Note -> everytime we run this code with save() it will save same data in the database
+
+
+here we use find to get data from database then we called for each on data and extract data from array
+
+mongoose.connection.close()
+to close connection
+
+
+
+//validation
+
+for number Schema 
+const personSchema = new mongoose.Schema({
+    name : String,
+    age  : Number
+});
+like this we can customise number field like
+
+age : {
+    type : number,
+    min  : 1,
+    max  : 10
+}
+this is know as validation
+
+for string required
+
+   name : {
+        type : String,
+        required : true
+    },
+
+//Update
+
+people.updateOne({_id:"63e403c532df929a3495885f"},{name : "jack"},function(err){
+   if(err){ console.log(err) }
+   else{console.log("Succesfully updated the documnet")}
+})
+
+//delete data from collection
+
+name.deleteOne({_id:"id_here"},(err)=>{
+   if(err){ console.log(err) }
+})
+
+
+//deleteMany data from collection
+name.deleteMany({name:/name_here/,age:"age_here"},(err)=>{
+    if(err){console.log(err)}
+})
+
+
+//To delete collection
+
+db.collectionName.drop()
